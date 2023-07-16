@@ -1,15 +1,9 @@
 // Core
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 // Other
 import { PropsType } from './types';
 
-export const Square: FC<PropsType> = () => {
-
-  const [value, setValue] = useState<string | null>(null);
-  const onClick = (): void => {
-    setValue('X');
-  };
-
-  return <button className="square" onClick={onClick}>{value}</button>;
+export const Square: FC<PropsType> = ({ value}) => {
+  return <button className="square" >{value}</button>;
 };
