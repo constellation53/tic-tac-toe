@@ -21,11 +21,11 @@ export const Game: FC<PropsType> = () => {
     setCurrentMove(nextHistory.length - 1);
   };
 
-  const jumpTo = (nextMove: number): void => {
-    setCurrentMove(nextMove);
-  };
-
   const moves = history.map((_, move) => {
+    const jumpTo = (): void => {
+      setCurrentMove(move);
+    };
+
     let description;
     if (move === currentMove) {
       description = `You are at move #${move}`;
@@ -37,7 +37,7 @@ export const Game: FC<PropsType> = () => {
 
     return (
       <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
+        <button onClick={jumpTo}>{description}</button>
       </li>
     );
   });
