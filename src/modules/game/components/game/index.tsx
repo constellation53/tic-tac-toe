@@ -12,16 +12,20 @@ export const Game: FC<PropsType> = () => {
   const [xIsNext, setXIsNext] = useState<boolean>(true);
   const [history, setHistory] = useState<(string[] | null[])[]>(
     [Array(9).fill(null)]);
-  const currentSquares = history[history.length - 1];
+  const [currentMove, setCurrentMove] = useState(0);
+  const currentSquares = history[currentMove];
 
   const handlePlay = (nextSquares: string[] | null[]): void => {
-    setHistory((prevHistory) => [...prevHistory, nextSquares]);
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
     setXIsNext(!xIsNext);
   };
 
-  function jumpTo(nextMove) {
-    // TODO
-  }
+  const jumpTo = (nextMove: number): void => {
+    setCurrentMove(nextMove);
+    setXIsNext(nextMove % 2 === 0);
+  };
 
   const moves = history.map((_, move) => {
     let description;
@@ -31,7 +35,7 @@ export const Game: FC<PropsType> = () => {
       description = 'Go to game start';
     }
     return (
-      <li>
+      <li key={move}>
         <button onClick={() => jumpTo(move)}>{description}</button>
       </li>
     );
