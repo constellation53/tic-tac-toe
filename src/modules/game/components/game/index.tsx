@@ -9,13 +9,13 @@ type PropsType = {
 };
 
 export const Game: FC<PropsType> = () => {
-  const [history, setHistory] = useState<(string[] | null[])[]>(
+  const [history, setHistory] = useState<(string | null)[][]>(
     [Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const currentSquares = history[currentMove];
   const xIsNext = currentMove % 2 === 0;
 
-  const handlePlay = (nextSquares: string[] | null[]): void => {
+  const handlePlay = (nextSquares: (string | null)[]): void => {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);

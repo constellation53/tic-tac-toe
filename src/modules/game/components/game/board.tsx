@@ -19,16 +19,12 @@ export const Board: FC<PropsType> = ({
   const winner = calculateWinner(squares);
 
   const handleSquareClick = (index: number): void => {
-    const nextSquares = squares.slice();
+    const square = xIsNext ? 'X' : 'O';
+
+    const nextSquares = [...squares.slice(0, index), square, ...squares.slice(index + 1)];
 
     if (squares[index] || winner) {
       return;
-    }
-
-    if (xIsNext) {
-      nextSquares[index] = 'X';
-    } else {
-      nextSquares[index] = 'O';
     }
 
     onPlay(nextSquares);
