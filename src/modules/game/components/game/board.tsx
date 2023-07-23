@@ -41,7 +41,15 @@ export const Board: FC<PropsType> = ({
   const listJSX = squares.map((square, index) => {
     const onClick = (): void => handleSquareClick(index);
 
-    return <Square value={square} onClick={onClick}/>;
+    const shouldColorToRed = winner && combination?.includes(index);
+
+    return (
+      <Square
+        red={shouldColorToRed}
+        value={square}
+        onClick={onClick}
+      />
+    );
   });
 
   return <div>
