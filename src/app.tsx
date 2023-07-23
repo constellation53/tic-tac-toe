@@ -1,6 +1,11 @@
+// Core
 import { FC, ReactElement } from 'react';
+
+// Components
 import { Game } from './modules/game/components/game/index.tsx';
-import './App.css';
+
+// Other
+import './app.css';
 
 type PropsType = {
   children?: never;
