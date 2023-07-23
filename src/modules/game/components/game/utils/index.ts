@@ -1,4 +1,4 @@
-export const calculateWinner = (squares: (string | null)[]): null | string => {
+export const calculateWinner = (squares: (string | null)[]): [string | null, number[] | null] => {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -17,8 +17,11 @@ export const calculateWinner = (squares: (string | null)[]): null | string => {
     const isCombination = squares[a] && squares[a] === squares[b] && squares[a] === squares[c];
 
     if (isCombination) {
-      return squares[a];
+      const combination = lines[i];
+      const player = squares[a] || 'ERROR';
+      return [player, combination];
     }
   }
-  return null;
+
+  return [null, null];
 };

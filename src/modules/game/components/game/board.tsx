@@ -2,7 +2,7 @@
 import { FC, ReactElement, useEffect, useState } from 'react';
 
 // Elements
-import { Index } from './elements/square';
+import { Square } from './elements/square';
 import { Status } from './elements/status';
 
 // Other
@@ -16,7 +16,7 @@ export const Board: FC<PropsType> = ({
 }): ReactElement => {
   const [status, setStatus] = useState<string>(`Next player: ${xIsNext ? 'X' : 'O'}`);
 
-  const winner = calculateWinner(squares);
+  const [winner, combination] = calculateWinner(squares);
 
   const handleSquareClick = (index: number): void => {
     const square = xIsNext ? 'X' : 'O';
@@ -38,22 +38,16 @@ export const Board: FC<PropsType> = ({
     }
   }, [winner, xIsNext]);
 
+  const listJSX = squares.map((square, index) => {
+    const onClick = (): void => handleSquareClick(index);
+
+    return <Square value={square} onClick={onClick}/>;
+  });
+
   return <div>
     <Status text={status} />
     <div className="board-row">
-      <Index value={squares[0]} onClick={() => handleSquareClick(0)}/>
-      <Index value={squares[1]} onClick={() => handleSquareClick(1)}/>
-      <Index value={squares[2]} onClick={() => handleSquareClick(2)}/>
-    </div>
-    <div className="board-row">
-      <Index value={squares[3]} onClick={() => handleSquareClick(3)}/>
-      <Index value={squares[4]} onClick={() => handleSquareClick(4)}/>
-      <Index value={squares[5]} onClick={() => handleSquareClick(5)}/>
-    </div>
-    <div className="board-row">
-      <Index value={squares[6]} onClick={() => handleSquareClick(6)}/>
-      <Index value={squares[7]} onClick={() => handleSquareClick(7)}/>
-      <Index value={squares[8]} onClick={() => handleSquareClick(8)}/>
+      {listJSX}
     </div>
   </div>;
 };
